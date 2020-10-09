@@ -1,4 +1,4 @@
-class Carreau{
+public class Carreau{
 boolean point = false;
 boolean pointBonus = false;
 boolean estManger = false;

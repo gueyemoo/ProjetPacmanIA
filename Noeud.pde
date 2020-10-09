@@ -1,4 +1,4 @@
-class Noeud{
+public class Noeud{
 
   float x;   //position de x du Noeud
   float y;  // position de y du Noeud
