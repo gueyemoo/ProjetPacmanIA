@@ -1,3 +1,5 @@
+/*import java.util.LinkedList;
+
 public class Chemin{
   float distance = 0; //Distance du chemin à parcourir
   PVector direction; //La direction suivi par l'ia pour aller jusqu'au dernier noeud du chemin
@@ -40,10 +42,10 @@ public class Chemin{
     for(int i=0; i < chemin.size()-1; i++){
       line(chemin.get(i).x*16+8, chemin.get(i).y*16+8, chemin.get(i+1).x*16+8, chemin.get(i+1).y*16+8);// Dessine la ligne avec les coordonnée du chemin
     }
-    ellipse(chemin.get(chemin.size()-1).x*16)+8, (chemin.get(chemin.size()-1).y*16)+8, 8,8); //Dessine un cercle sur l'objectif final du chemin
+      ellipse((chemin.get(chemin.size()-1).x*16)+8, (chemin.get(chemin.size()-1).y*16)+8, 8,8); //Dessine un cercle sur l'objectif final du chemin
   }
 
 
 
 
-}
+}*/

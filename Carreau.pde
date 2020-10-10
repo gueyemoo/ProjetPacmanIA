@@ -3,11 +3,11 @@ boolean point = false;
 boolean pointBonus = false;
 boolean estManger = false;
 boolean mur = false;
-Pvector position;
+PVector position;
 
   //Constructeur//
   Carreau(float x, float y){
-    position = new Pvector(this.x,this.y);
+    position = new PVector(x,y);
   }
 
 

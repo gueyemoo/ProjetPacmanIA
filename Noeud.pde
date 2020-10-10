@@ -1,3 +1,5 @@
+/*import java.util.LinkedList;
+
 public class Noeud{
 
   float x;   //position de x du Noeud
@@ -14,7 +16,7 @@ public class Noeud{
 
   public void dessine(){ //dessine un cercle
     fill(0, 80, 80);
-    ellipse(x*16+8, y*16+8)
+    ellipse(x, y, 50,50);
   }
 
 
@@ -64,4 +66,4 @@ public class Noeud{
 
     }
 
-  }
+  }*/
