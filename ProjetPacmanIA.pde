@@ -2,6 +2,7 @@ int statut = 2;// Statut de départ par défaut
 final int MENU_PRINCIPAL = 0;
 final int JEU = 1;
 final int MENU_GAMEOVER = 2;
+final int MENU_GAMEOVER_APROPOS = 3;
 
 PImage bouton_bleu, bouton_rouge, menu_img, menu_titre, menu_gameover_img;
 String [] menu_option = {"Test 1", "Test 2", "Test 3"};
@@ -65,6 +66,12 @@ public void draw() {
   afficheMenuGameOver();
   
   break;
+  
+  case MENU_GAMEOVER_APROPOS:
+  background(0, 0, 0);
+  afficheMenuAPropos();
+  
+  break;
   }
 }
 
@@ -83,7 +90,13 @@ public void mouseMoved() {
        position_curseur = i;
      }
     }
-  
+  } else if(statut == 3){
+        for(int i=0; i < 2; i++){
+     if(mouseX > bouton_x1[i] && mouseX < bouton_x2[i] &&
+     mouseY > bouton_y1[i] && mouseY < bouton_y2[i]){ 
+       position_curseur = i;
+     }
+    }
   }
 }
 
@@ -95,6 +108,9 @@ public void mouseClicked(){
      } else if(statut == 2){
           println("test 1 clicked Menu gameover");
           statut = 0; //retourne au menu principal
+     } else if(statut == 3){
+        println("test 1 clicked Menu a propos");
+        statut = 0;
      }
      break;
      
@@ -104,7 +120,10 @@ public void mouseClicked(){
      } else if(statut == 2){ // Le bouton quit du menu gameover
           println("test 2 clicked Menu gameover");
           exit();// fonction de Processing pour finir un programme après la complétion de la fonction draw()
-     }     
+     } else if(statut == 3){ // bouton quit du menu a propos
+         println("test 2 clicked Menu a propos");
+         exit(); // quitte le jeu
+     }
      break;
      
      case 2:
@@ -113,6 +132,7 @@ public void mouseClicked(){
           statut = 2;
      } else if(statut == 2){
           println("test 3 clicked Menu gameover");
+          statut = 3;
      }     
      break;
   }
@@ -144,7 +164,6 @@ public void afficheMenuPrincipal() {
 }
 
 public void afficheMenuGameOver(){
-  fill(255);
 
   image(menu_titre, 90, 20);
   image(menu_gameover_img, 90, 90);
@@ -156,6 +175,24 @@ public void afficheMenuGameOver(){
   textSize(20);
  
   for (int i=0; i < N_MENUS_GAMEOVER; i++) {
+
+    PImage image_actuel = (position_curseur == i) ? bouton_rouge : bouton_bleu;
+    image(image_actuel, bouton_x1[i], bouton_y1[i]);
+    int x1 = (bouton_largeur - (int)textWidth(menu_gameover[i]) ) /2;
+    text(menu_gameover[i], bouton_x1[i] + x1 + 17, 42 + bouton_y1[i]);
+  }
+}
+
+public void afficheMenuAPropos(){
+    image(menu_titre, 90, 20);
+  text("S/o le projet", 150,150);  
+  fill(255,255,0);
+  text("A Propos", 170, 110);
+
+  fill(255,255,255);
+  textSize(20);
+ 
+  for (int i=0; i < 2; i++) {
 
     PImage image_actuel = (position_curseur == i) ? bouton_rouge : bouton_bleu;
     image(image_actuel, bouton_x1[i], bouton_y1[i]);
