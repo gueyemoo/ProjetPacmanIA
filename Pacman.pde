@@ -43,8 +43,8 @@ public class Pacman {
 
       PVector positionApresChangement = new PVector(positionArray.x + changementDirection.x, positionArray.y + changementDirection.y); // On verfie le carreau ou le joueur compte aller en tournant
 
-      if (carreaux[floor(positionApresChangement.y)][floor(positionApresChangement.x)].mur) {//Verifie si il n'y a pas de mur vers la positon ou le joueur veut tourner
-        if (carreaux[floor(positionArray.y + direction.y)][floor(positionArray.x + direction.y)].mur) { //Verifie si un mur est devant le pacman ou non
+      if (carreaux[floor(positionApresChangement.y)][floor(positionApresChangement.x)].mur) {//Verifie si il n'y a pas de mur vers la position ou le joueur veut tourner
+        if (carreaux[floor(positionArray.y + direction.y)][floor(positionArray.x + direction.x)].mur) { //Verifie si un mur est devant le pacman ou non
           return false; //si aucun des deux n'est libre alors on empeche le pacman de bouger
         } else { //L'espace devant est libre
           return true;
