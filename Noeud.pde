@@ -1,4 +1,4 @@
-/*import java.util.LinkedList;
+import java.util.LinkedList;
 
 public class Noeud{
 
@@ -32,7 +32,7 @@ public class Noeud{
           boolean leNoeud = true;
 
           while(premierNoeudHorizon < dernierNoeudHorizon){ //On regarde du premier noeud au dernier afin de savoir si il y a un mur
-            if(carreau[(int)y][(int)premierNoeudHorizon].mur){
+            if(carreaux[(int)y][(int)premierNoeudHorizon].mur){
               leNoeud = false; //C'est pas un noeud puis ce que ca veut dire qu'il y a un mur
               break;
             }
@@ -48,7 +48,7 @@ public class Noeud{
             boolean leNoeud = true;
 
             while(premierNoeudVerti < dernierNoeudVerti){ //On regarde du premier noeud tout en haut à celui tout en haut
-              if(carreau[(int)premierNoeudVerti][(int)x].mur){
+              if(carreaux[(int)premierNoeudVerti][(int)x].mur){
                 leNoeud = false;
                 break;
               }
@@ -66,4 +66,4 @@ public class Noeud{
 
     }
 
-  }*/
+  }

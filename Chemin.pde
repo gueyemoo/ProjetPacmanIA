@@ -1,4 +1,4 @@
-/*import java.util.LinkedList;
+import java.util.LinkedList;
 
 public class Chemin{
   float distance = 0; //Distance du chemin à parcourir
@@ -48,4 +48,4 @@ public class Chemin{
 
 
 
-}*/
+}

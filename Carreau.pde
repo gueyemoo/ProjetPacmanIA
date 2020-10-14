@@ -11,7 +11,7 @@ PVector position;
   }
 
 
-  public void dessine(){
+  public void dessine(){ //Permet de dessiner les point bonus et les points que le Pacman va manger
     if (point){ //si c'est un point
 
       if(!estManger){ //On dessine le point
