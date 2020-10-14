@@ -278,3 +278,21 @@ public void afficheCarteJeu(){ //Affiche la carte du jeu pacman
       }
     }
 }
+
+PVector getCarreauNonMurProche(PVector cible){ // retourne le carreau non-mur le plus proche 
+  float minimum = 1000;
+  int minimumJ =0;
+  int minimumI =0;
+  for(int i =0; i<28; i++) { // parcours de tout les carreaux
+   for (int j =0; j<31; j++) {
+     if (!carreaux[j][i].mur) { // si non-mur
+       if(dist(i,j, cible.x, cible.y)<minimum) { // si c'est la cible la plus proche
+        minimum = dist(i,j, cible.x, cible.y);
+        minimumJ= j;
+        minimumI = i;
+       }
+     }
+    }
+  }
+  return new PVector(minimumI, minimumJ); // retourne un PVector au carreau
+}
