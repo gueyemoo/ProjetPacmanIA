@@ -110,7 +110,6 @@ public void draw() {
 
     background(0, 0, 0);
     afficheMenuPrincipal();
-
     break;
 
   case JEU:
@@ -118,20 +117,16 @@ public void draw() {
     afficheCarteJeu();
     pacman.avance();
     pacman.dessine();
-
-
     break;
 
   case MENU_GAMEOVER:
     background(0, 0, 0);
     afficheMenuGameOver();
-
     break;
 
   case MENU_GAMEOVER_APROPOS:
     background(0, 0, 0);
     afficheMenuAPropos();
-
     break;
   }
 }

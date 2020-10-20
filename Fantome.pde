@@ -1,4 +1,4 @@
-class Fantome {
+/*class Fantome {
   PVector position = new PVector (13*16+8, 11*16+8); //position de départ
   PVector dir = new PVector (1, 0);
   Noeud depart;  // Position du fantome en tant que noeud
@@ -229,4 +229,4 @@ class Fantome {
       meilleurChemin = temporaire.dupliquer();
     }
   }
-}
+}*/
