@@ -111,10 +111,10 @@ class Fantome {
             }
           } else if (nom == "FantomeRose") { // rose cible 4 cases devant pacman
             int cibleAvancee = 4;
-            PVector matricePositionPacman = new PVector((pacman.position.x-8)/16 + (pacman.dir.x*cibleAvancee), (pacman.position.y-8)/16 + (pacman.dir.y * cibleAvancee));
+            PVector matricePositionPacman = new PVector((pacman.position.x-8)/16 + (pacman.direction.x*cibleAvancee), (pacman.position.y-8)/16 + (pacman.direction.y * cibleAvancee));
             while (!(matricePositionPacman.x >0 && matricePositionPacman.y >0 && matricePositionPacman.x <28 && matricePositionPacman.y < 31 && !carreaux[(int)matricePositionPacman.y][(int)matricePositionPacman.x].mur)) {
               cibleAvancee -= 1;
-              matricePositionPacman = new PVector((pacman.position.x-8)/16 + (pacman.dir.x*cibleAvancee), (pacman.position.y-8)/16 + (pacman.dir.y *cibleAvancee));
+              matricePositionPacman = new PVector((pacman.position.x-8)/16 + (pacman.direction.x*cibleAvancee), (pacman.position.y-8)/16 + (pacman.direction.y *cibleAvancee));
             }
             if (dist((position.x-8)/16, (position.y-8)/16, matricePositionPacman.x, matricePositionPacman.y)<1) {
               noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16));
