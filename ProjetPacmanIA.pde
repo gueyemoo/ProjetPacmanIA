@@ -15,11 +15,11 @@ int bouton_longueur = 40;
 int [] bouton_x1, bouton_y1, bouton_x2, bouton_y2;
 
 Pacman pacman;
-/*
+
 FantomeRouge fantomeRouge;
 FantomeBleu fantomeBleu;
 FantomeRose fantomeRose;
-FantomeOrange fantomeOrange;*/
+FantomeOrange fantomeOrange;
 
 Carreau[][] carreaux = new Carreau[31][28]; // on fait correspondre les carreaux à la map du pacman en insérant par [y][x]
 int[][] carte = {
@@ -97,11 +97,11 @@ public void setup() {
 
   initCarteJeu();
   pacman = new Pacman(); //Initialise le pacman
-  /*
+  
   fantomeRouge = new FantomeRouge();
   fantomeBleu = new FantomeBleu();
   fantomeRose = new FantomeRose();
-  fantomeOrange = new FantomeOrange();*/
+  fantomeOrange = new FantomeOrange();
 }
 
 public void draw() {
@@ -116,7 +116,18 @@ public void draw() {
     //A completer
     afficheCarteJeu();
     pacman.avance();
+    
+    fantomeRouge.apparait();
+   // fantomeRouge.deplacement();
+    fantomeBleu.apparait();
+    //fantomeBleu.deplacement();
+    fantomeRose.apparait();
+    //fantomeRose.deplacement();
+    fantomeOrange.apparait();
+    //fantomeOrange.deplacement();
+    
     pacman.dessine();
+
     break;
 
   case MENU_GAMEOVER:

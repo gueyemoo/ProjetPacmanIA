@@ -1,4 +1,4 @@
-/*class Fantome {
+class Fantome {
   PVector position = new PVector (13*16+8, 11*16+8); //position de départ
   PVector dir = new PVector (1, 0);
   Noeud depart;  // Position du fantome en tant que noeud
@@ -47,7 +47,7 @@
           stroke(couleur);
           fill(couleur);
         }
-        meilleurChemin.dessineLigne();
+        //meilleurChemin.dessineLigne();
       } else { // cas ou fuite = true
         compteurFuite ++;
         if (compteurFuite > 800) {
@@ -139,12 +139,12 @@
   }
 
   void verifDirection() {
-    if (pacman.touchePacman(position)) { // si il touche pacman
+    if (pacman.toucher(position)) { // si il touche pacman
       if (fuite) {
         retourBase = true;
         fuite = false;
       } else if (!retourBase) { // si il touche pacman en mode normal, il le tue
-        pacman.tue();
+        pacman.tuer();
       }
     }
 
@@ -224,9 +224,9 @@
     setNoeud();
     depart = noeudFantome.get(0);
     arrivee = noeudFantome.get(noeudFantome.size()-1);
-    Chemin temporaire = AStar(depart, arrivee, dir);
-    if(temporaire != null) {
-      meilleurChemin = temporaire.dupliquer();
-    }
+   // Chemin temporaire = AStar(depart, arrivee, dir);
+   // if(temporaire != null) {
+    //  meilleurChemin = temporaire.dupliquer();
+   // }
   }
-}*/
+}
