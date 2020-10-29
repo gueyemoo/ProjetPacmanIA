@@ -120,7 +120,7 @@ public void draw() {
     pacman.avance();
 
     fantomeRouge.apparait();
-    //fantomeRouge.deplacement();
+    fantomeRouge.deplacement();
     
     fantomeBleu.apparait();
     //fantomeBleu.deplacement();

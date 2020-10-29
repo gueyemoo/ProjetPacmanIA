@@ -31,6 +31,11 @@ class Fantome {
         chasse = false;
         compteurChasse = 0; // remise a 0 du compteur pour prochaine chasse
       }
+    } else {
+      if (compteurChasse > 700) {
+        chasse = true;
+        compteurChasse =0;
+      }
     }
 
     if (mort) {
