@@ -5,7 +5,8 @@ public class Noeud{
   float x;   //position de x du Noeud
   float y;  // position de y du Noeud
   LinkedList<Noeud> listeNoeud = new LinkedList<Noeud>(); //Linked list de tout les noeuds auxquels ce Noeud est connecté
-
+  boolean verifier = false;
+  float plusPetiteDistanceAuTarget = 10000000; //La distance du plus court chemin du noeud de depart a son target
 
   //Constructeur//
   Noeud(float x, float y){

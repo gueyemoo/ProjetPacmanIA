@@ -47,7 +47,7 @@ class Fantome {
           stroke(couleur);
           fill(couleur);
         }
-        //meilleurChemin.dessineLigne();
+        meilleurChemin.dessineLigne(); //Montre le chemin que le fantome va suivre
       } else { // cas ou fuite = true
         compteurFuite ++;
         if (compteurFuite > 800) {
@@ -90,7 +90,9 @@ class Fantome {
           if(nom == "FantomeRouge") {
             noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16)); // poursuit pacman
 
-          } else if (nom == "FantomeOrange") {
+          }else if (nom == "FantomeTest2"){
+            noeudFantome.add(new Noeud(26,29)); //target le coin en bas à droite
+          }else if (nom == "FantomeOrange") {
             if (dist((position.x-8)/16, (position.y-8)/16, (pacman.position.x-8)/16, (pacman.position.y-8)/16) >8 ) {
               noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16));
             } else {
@@ -224,9 +226,9 @@ class Fantome {
     setNoeud();
     depart = noeudFantome.get(0);
     arrivee = noeudFantome.get(noeudFantome.size()-1);
-   // Chemin temporaire = AStar(depart, arrivee, dir);
-   // if(temporaire != null) {
-    //  meilleurChemin = temporaire.dupliquer();
-   // }
+    Chemin temporaire = AlgoRechercheAEtoile(depart, arrivee, dir);
+    if(temporaire != null) {
+      meilleurChemin = temporaire.dupliquer();
+    }
   }
 }
