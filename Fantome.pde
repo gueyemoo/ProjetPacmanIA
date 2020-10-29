@@ -31,11 +31,6 @@ class Fantome {
         chasse = false;
         compteurChasse = 0; // remise a 0 du compteur pour prochaine chasse
       }
-    } else {
-      if (compteurChasse > 700) {
-        chasse = true;
-        compteurChasse =0;
-      }
     }
 
     if (mort) {
@@ -231,7 +226,7 @@ class Fantome {
     setNoeud();
     depart = noeudFantome.get(0);
     arrivee = noeudFantome.get(noeudFantome.size()-1);
-    Chemin temporaire = AlgoRechercheMe(depart, arrivee, dir);
+    Chemin temporaire = AlgoRechercheBFS(depart, arrivee, dir);
     if(temporaire != null) {
       meilleurChemin = temporaire.dupliquer();
     }

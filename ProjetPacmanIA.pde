@@ -464,7 +464,7 @@ public Chemin AlgoRechercheAEtoile(Noeud depart, Noeud arrive, PVector deplaceme
 }
 
 
-public Chemin AlgoRechercheMe(Noeud depart, Noeud arrive, PVector deplacement) {
+public Chemin AlgoRechercheBFS(Noeud depart, Noeud arrive, PVector deplacement) {
 
   LinkedList<Chemin> listChemin = new LinkedList<Chemin>(); //On y mets tout les chemins possible
   Chemin etendre = new Chemin(); //un chemin temporaire qui sera etendu par l'ajout d'un nouveau noeud
@@ -492,17 +492,17 @@ public Chemin AlgoRechercheMe(Noeud depart, Noeud arrive, PVector deplacement) {
       } else {//Si ce n'est pas le dernier chemin de la liste alors on va au prochain car celui-ci est deja a la fin
         etendre = listChemin.pop(); //On va au prochaine chemin
       }
-    }
+    } 
 
-
-    if (!etendre.chemin.getLast().verifier || etendre.distance < etendre.chemin.getLast().plusPetiteDistanceAuTarget) {//Si le noeud d'arriver du chemin choisi a deja été verifié et que la distance a l'arriver est plus court que le chemin actuelle choisi alors le chemin choisi n'est pas le bon
+    
+    //enlever le if ci-dessous nous fait passer en BFS, (ça va pas marcher) trop de possibilité de chemin du coup il faut augmenter la mémoire dans les préférences à 512 car ça en demande trop sinon erreur.
+   // if (!etendre.chemin.getLast().verifier || etendre.distance < etendre.chemin.getLast().plusPetiteDistanceAuTarget) {//Si le noeud d'arriver du chemin choisi a deja été verifié et que la distance a l'arriver est plus court que le chemin actuelle choisi alors le chemin choisi n'est pas le bon
+    
 
       if (!cheminTrouver || etendre.distance + dist(etendre.chemin.getLast().x, etendre.chemin.getLast().y, arrive.x, arrive.y) < cheminFinal.distance) { //On ne regarde pas les chemins qui sont plus long qu'un chemin qui a deja atteint l'arriver
 
         //Si c'est le premier chemin a atteindre l'arriver ou le plus court chemin a atteindre le noeud alors on défini la distance la plus courte jusqu'a l'arriver par celle de ce chemin 
         etendre.chemin.getLast().plusPetiteDistanceAuTarget = etendre.distance;
-
-        //move all paths to sorting form big then add the new paths (in the for loop)and sort them back into big.
 
         Noeud noeudTemporaire = new Noeud(0, 0); //crée un noeud temporaire ou le réinitialise
 
@@ -519,16 +519,17 @@ public Chemin AlgoRechercheMe(Noeud depart, Noeud arrive, PVector deplacement) {
 
             if (directionVersLeNoeud.x == -1* etendre.direction.x && directionVersLeNoeud.y == -1* etendre.direction.y ) {
               //on ne fait rien car le noeud est a l'opposé
-            } else {// si le noeud n'est pas a l'opposé et donc le fantome ne fait pas demi tour
+            } else {// si le noeud n'est pas a l'opposé et donc le fantome ne fait pas demi tour (rappel le fantome peut pas faire demi tour au pacman)
               etendu = etendre.dupliquer(); // Duplique le chemin actuelle
               etendu.ajoutNoeudAuChemin(etendre.chemin.getLast().listeNoeud.get(i), arrive); //Ajoute le noeud au chemin actuelle dupliquer
               etendu.direction = new PVector(directionVersLeNoeud.x, directionVersLeNoeud.y); //Defini la direction vers le noeud
               listChemin.add(etendu.dupliquer());//ajoute le chemin actuelle dupliquer a la liste des chemins a trié
             }
           }
-        }
+      //  }
 
       }
+      
     }
 
     etendre.chemin.getLast().verifier = true;
