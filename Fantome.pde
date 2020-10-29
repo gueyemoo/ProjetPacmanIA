@@ -226,7 +226,7 @@ class Fantome {
     setNoeud();
     depart = noeudFantome.get(0);
     arrivee = noeudFantome.get(noeudFantome.size()-1);
-    Chemin temporaire = AlgoRechercheAEtoile(depart, arrivee, dir);
+    Chemin temporaire = AlgoRechercheMe(depart, arrivee, dir);
     if(temporaire != null) {
       meilleurChemin = temporaire.dupliquer();
     }
