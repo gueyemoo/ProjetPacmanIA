@@ -21,7 +21,9 @@ FantomeRouge fantomeRouge;
 FantomeBleu fantomeBleu;
 FantomeRose fantomeRose;
 FantomeOrange fantomeOrange;
-FantomeTest2 fantomeTest2;
+FantomeTest2AEtoile fantomeTest2Aetoile;
+FantomeTest2BFS fantomeTest2Bfs;
+
 
 Carreau[][] carreaux = new Carreau[31][28]; // on fait correspondre les carreaux à la map du pacman en insérant par [y][x]
 int[][] carte = {
@@ -104,7 +106,9 @@ public void setup() {
   fantomeBleu = new FantomeBleu();
   fantomeRose = new FantomeRose();
   fantomeOrange = new FantomeOrange();
-  fantomeTest2 = new FantomeTest2();
+  fantomeTest2Aetoile = new FantomeTest2AEtoile();
+  fantomeTest2Bfs = new FantomeTest2BFS();
+  
 }
 
 public void draw() {
@@ -137,9 +141,19 @@ public void draw() {
   case TEST2:
     afficheCarteJeuDeTest();
 
-    fantomeTest2.apparait();
-    fantomeTest2.deplacement();
 
+    fantomeTest2Aetoile.apparait();
+    fantomeTest2Aetoile.deplacement();
+
+  stroke(0,255,0);
+  fill(0,255,0);
+    
+   fantomeTest2Bfs.apparait();
+   fantomeTest2Bfs.deplacement();
+    
+    pacman.dessine();
+    pacman.avance();
+    
     break;
 
   case MENU_GAMEOVER:

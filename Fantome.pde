@@ -90,10 +90,12 @@ class Fantome {
           if(nom == "FantomeRouge") {
             noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16)); // poursuit pacman
 
-          }else if (nom == "FantomeTest2"){
-            noeudFantome.add(new Noeud(26,29)); //target le coin en bas à droite
+          }else if(nom == "FantomeTest2Aetoile"){
+                        noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16)); // poursuit pacman
+          }else if(nom == "FantomeTest2BFS"){
+                      noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16)); // poursuit pacman
           }else if (nom == "FantomeOrange") {
-            if (dist((position.x-8)/16, (position.y-8)/16, (pacman.position.x-8)/16, (pacman.position.y-8)/16) >8 ) {
+          if (dist((position.x-8)/16, (position.y-8)/16, (pacman.position.x-8)/16, (pacman.position.y-8)/16) >8 ) {
               noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16));
             } else {
               noeudFantome.add(new Noeud(1,29));
