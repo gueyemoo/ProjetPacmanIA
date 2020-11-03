@@ -138,18 +138,23 @@ public void draw() {
 
     break;
 
-  case TEST2:
+  case TEST2: //traite l'affiche du TEST 2
+  
+  
     afficheCarteJeuDeTest();
 
 
     fantomeTest2Aetoile.apparait();
     fantomeTest2Aetoile.deplacement();
-
+    
+    fantomeTest2Bfs.dessineNoeud();
   stroke(0,255,0);
   fill(0,255,0);
     
    fantomeTest2Bfs.apparait();
    fantomeTest2Bfs.deplacement();
+   
+   
     
     pacman.dessine();
     pacman.avance();
@@ -416,7 +421,6 @@ public Chemin AlgoRechercheAEtoile(Noeud depart, Noeud arrive, PVector deplaceme
         //Si c'est le premier chemin a atteindre l'arriver ou le plus court chemin a atteindre le noeud alors on défini la distance la plus courte jusqu'a l'arriver par celle de ce chemin 
         etendre.chemin.getLast().plusPetiteDistanceAuTarget = etendre.distance;
 
-        //move all paths to sorting form big then add the new paths (in the for loop)and sort them back into big.
 
         //On copie tout les chemins trouver dans la variable triChemin puis on ajoute le nouveau chemin (on tri le tout) et on retourne le tout dans listChemin
         triChemin = (LinkedList) listChemin.clone();
@@ -477,6 +481,105 @@ public Chemin AlgoRechercheAEtoile(Noeud depart, Noeud arrive, PVector deplaceme
   }
 }
 
+public Chemin AlgoRechercheMeilleurDab(Noeud depart, Noeud arrive, PVector deplacement) {
+
+  LinkedList<Chemin> listChemin = new LinkedList<Chemin>(); //On y mets tout les chemins possible
+  Chemin etendre = new Chemin(); //un chemin temporaire qui sera etendu par l'ajout d'un nouveau noeud
+  Chemin cheminFinal = new Chemin(); //Le chemin final
+  Chemin etendu = new Chemin(); //le chemin etendu
+  LinkedList<Chemin> triChemin = new LinkedList<Chemin>(); //tri tout les chemins par leur distance
+  boolean cheminTrouver = false; // Si un chemin est trouver du point de depart à l'arriver
+
+  etendre.ajoutNoeudAuChemin(depart, arrive); // on ajoute le noeud de depart au chemin temporaire
+  etendre.direction = new PVector(deplacement.x, deplacement.y); //evite au fantome de tourner
+  listChemin.add(etendre); //ajoute le noeud de départ du chemin
+
+  while (true) { //tant qu'on ne trouve pas de chemin
+    etendre = listChemin.pop(); //Prend le chemin au sommet de la pile (le chemin a etendre)
+    if (etendre.chemin.getLast().equals(arrive)) {//Verifie si le dernier noeud du chemin est egal au noeud d'arriver
+      if (!cheminTrouver) {// si le chemin est trouver
+        cheminTrouver = true;
+        cheminFinal = etendre.dupliquer(); //defini le cheminFinal car on l'a trouver
+      } else { 
+        if (cheminFinal.distance > etendre.distance) {//si le chemin actuel est plus court que le cheminFinal
+          cheminFinal = etendre.dupliquer(); //Defini le nouveau cheminFinal
+        }
+      }
+      if (listChemin.isEmpty()) {//Si ce chemin etait le dernier (a cause de la methode pop) alors on le retourne
+        return cheminFinal.dupliquer();
+      } else {//Si ce n'est pas le dernier chemin de la liste alors on va au prochain car celui-ci est deja a la fin
+        etendre = listChemin.pop(); //On va au prochaine chemin
+      }
+    }
+
+
+    if (!etendre.chemin.getLast().verifier || etendre.distance < etendre.chemin.getLast().plusPetiteDistanceAuTarget) {//Si le noeud d'arriver du chemin choisi a deja été verifié et que la distance a l'arriver est plus court que le chemin actuelle choisi alors le chemin choisi n'est pas le bon
+
+      if (!cheminTrouver || etendre.distance + dist(etendre.chemin.getLast().x, etendre.chemin.getLast().y, arrive.x, arrive.y) < cheminFinal.distance) { //On ne regarde pas les chemins qui sont plus long qu'un chemin qui a deja atteint l'arriver
+
+        //Si c'est le premier chemin a atteindre l'arriver ou le plus court chemin a atteindre le noeud alors on défini la distance la plus courte jusqu'a l'arriver par celle de ce chemin 
+        etendre.chemin.getLast().plusPetiteDistanceAuTarget = etendre.distance;
+
+
+        //On copie tout les chemins trouver dans la variable triChemin puis on ajoute le nouveau chemin (on tri le tout) et on retourne le tout dans listChemin
+        triChemin = (LinkedList) listChemin.clone();
+        Noeud noeudTemporaire = new Noeud(0, 0); //crée un noeud temporaire ou le réinitialise
+
+        if (etendre.chemin.size() > 1) { //si le chemin actuelle contient au moins 2 noeud
+          noeudTemporaire = etendre.chemin.get(etendre.chemin.size() -2); //Défini le noeud temporaire comme l'avant dernier noeud du chemin actuelle
+        }
+
+        for (int i=0; i<etendre.chemin.getLast().listeNoeud.size(); i++) { //Pour chaque noeud connecter au noeud final du chemin à étendre (le chemin actuelle)
+
+          if (noeudTemporaire != etendre.chemin.getLast().listeNoeud.get(i)) { // Si on ne va pas en arriere (verifie que le nouveau noeud n'est pas le noeud qui se trouver derriere) 
+            //Si la direction vers le nouveau noeud est a l'opposer de la direction vers laquel le chemin aller alors on ne compte pas ce chemin
+            PVector directionVersLeNoeud = new PVector(etendre.chemin.getLast().listeNoeud.get(i).x - etendre.chemin.getLast().x, etendre.chemin.getLast().listeNoeud.get(i).y - etendre.chemin.getLast().y);
+            directionVersLeNoeud.limit(deplacement.mag());
+
+            if (directionVersLeNoeud.x == -1* etendre.direction.x && directionVersLeNoeud.y == -1* etendre.direction.y ) {
+              //on ne fait rien car le noeud est a l'opposé
+            } else {// si le noeud n'est pas a l'opposé et donc le fantome ne fait pas demi tour
+              etendu = etendre.dupliquer(); // Duplique le chemin actuelle
+              etendu.ajoutNoeudAuChemin(etendre.chemin.getLast().listeNoeud.get(i), arrive); //Ajoute le noeud au chemin actuelle dupliquer
+              etendu.direction = new PVector(directionVersLeNoeud.x, directionVersLeNoeud.y); //Defini la direction vers le noeud
+              triChemin.add(etendu.dupliquer());//ajoute le chemin actuelle dupliquer a la liste des chemins a trié
+            }
+          }
+        }
+
+        //Trie tout les chemins contenu dans triChemin en plus du nouveau chemin ajouter
+        //ajoute le chemin avec la plus grande distance en premier comme ça il sera le dernier de la variable listChemin
+
+        listChemin.clear();//vide la liste
+        while (!triChemin.isEmpty()) {// tant que la liste des chemins a trier n'est pas vide
+          float maximum = -1;
+          int intMax = 0;
+          for (int i=0; i < triChemin.size(); i++) {
+            if (maximum < triChemin.get(i).distance) { //L'algorithme de meilleur d'abord utilise la distance jusqu'a l'objectif sans le cout du chemin pour déterminer l'ordre de tri
+            //içi le cout c'est la distanceRestante 
+              intMax = i;
+              maximum = triChemin.get(i).distance ;
+            }
+          }
+          listChemin.addFirst(triChemin.remove(intMax).dupliquer()); // ajout le chemin devant comme ça celui avec la meilleur distance sera premier
+        }
+      }
+    }
+
+    etendre.chemin.getLast().verifier = true;
+
+    //Si aucun chemin n'est trouver
+    if (listChemin.isEmpty()) {
+      if (cheminTrouver ==false) //Il n'y a aucun chemin du debut a la fin
+      {
+        print("Houston on a un probleme");//message d'erreur 
+        return null;
+      } else {//Si un chemin a été trouver alors celui si a été stocker dans cheminFinal alors on retourne cheminFinal
+        return cheminFinal.dupliquer();
+      }
+    }
+  }
+}
 
 public Chemin AlgoRechercheBFS(Noeud depart, Noeud arrive, PVector deplacement) {
 
