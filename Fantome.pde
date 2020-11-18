@@ -23,7 +23,7 @@ class Fantome {
   }
 
   // METHODES
-  void apparait() {
+  public void apparait() {
     // démarrage des compteurs
     compteurChasse ++;
     if (chasse) {
@@ -67,7 +67,7 @@ class Fantome {
     }
   }
 
-  void setNoeud() {
+ public void setNoeud() {
 
       noeudFantome.add(new Noeud((position.x-8)/16, (position.y-8)/16)); // ajoute la position actuelle comme noeud
       for (int i = 1; i<27; i++) {
@@ -137,14 +137,14 @@ class Fantome {
       }
   }
 
-  void deplacement() {
+  public void deplacement() {
     if (!mort) { // pas de deplacment si il est dans la base
       position.add(dir);
       verifDirection(); // verifie si changement de direction necessaire au prochain deplacement
     }
   }
 
-  void verifDirection() {
+  public void verifDirection() {
     if (pacman.toucher(position)) { // si il touche pacman
       if (fuite) {
         retourBase = true;
@@ -225,12 +225,12 @@ class Fantome {
     }
   }
 
-  void definirChemin() {
+  public void definirChemin() {
     noeudFantome.clear();
     setNoeud();
     depart = noeudFantome.get(0);
     arrivee = noeudFantome.get(noeudFantome.size()-1);
-    Chemin temporaire = AlgoRechercheBFS(depart, arrivee, dir);
+    Chemin temporaire = AlgoRechercheAEtoile(depart, arrivee, dir);
     if(temporaire != null) {
       meilleurChemin = temporaire.dupliquer();
     }

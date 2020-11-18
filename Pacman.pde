@@ -5,7 +5,7 @@ public class Pacman {
   PVector direction = new PVector(-1, 0);
 
   boolean aTourner = false;
-  int score = 30000;
+  int score = 0;
   int vies = 2;
   boolean fin_de_partie = false;
 
@@ -73,14 +73,14 @@ public class Pacman {
     }
   }
   
-  boolean toucher(PVector positionFantome) {
+  public boolean toucher(PVector positionFantome) {
     if (dist(positionFantome.x, positionFantome.y, position.x, position.y) <10) { // si la distance entre le fantome et pacman est très proche
       return true; // on considère qu'ils se touchent
     }
     return false;
   }
   
-  void tuer() {
+  public void tuer() {
    vies = vies -1;
    if (vies <0) {
     fin_de_partie = true; // fin de partie quand pacman n'a plus de vies

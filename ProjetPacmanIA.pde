@@ -1,4 +1,4 @@
-int statut = 2;// Statut de départ par défaut
+int statut = 0;// Statut de départ par défaut
 final int MENU_PRINCIPAL = 0;
 final int JEU = 1;
 final int MENU_GAMEOVER = 2;
@@ -67,7 +67,7 @@ int[][] carte = {
 public void setup() {
 
   frameRate(100);
-  size(448, 496);
+  size(548, 496);
 
   carte_img = loadImage("carte_jeu.png");
 
@@ -120,6 +120,15 @@ public void draw() {
     break;
 
   case JEU:
+    if (!pacman.fin_de_partie) {
+
+    fill(255, 255, 0);
+    background(0);
+    text("Score : ", 450, 110);
+    text(pacman.score, 450,130);
+    textSize(20);
+
+    afficheVies();
     afficheCarteJeu();
     pacman.avance();
 
@@ -127,14 +136,22 @@ public void draw() {
     fantomeRouge.deplacement();
     
     fantomeBleu.apparait();
-    //fantomeBleu.deplacement();
+    fantomeBleu.deplacement();
     
     fantomeRose.apparait();
-    //fantomeRose.deplacement();
+    fantomeRose.deplacement();
+    
     fantomeOrange.apparait();
-    //fantomeOrange.deplacement();
+    fantomeOrange.deplacement();
 
     pacman.dessine();
+    if(pacman.score == 246){
+     statut = MENU_GAMEOVER;  
+    }
+    
+    } else {
+     statut = MENU_GAMEOVER;
+    }
 
     break;
 
@@ -173,6 +190,17 @@ public void draw() {
   }
 }
 
+public void afficheVies(){
+ int x = 0;
+ for (int i=-1; i<pacman.vies; i++){
+   x = x + 20;
+           text("Vies : ",460,190);
+           textSize(20);
+           fill(255, 0, 0); //Colorie en rouge
+           ellipse(450+x, 200, 15, 15); //Dessine un cercle
+ }
+}
+
 public void mouseMoved() {
   if (statut == 0 ) {
     for (int i=0; i < N_MENUS; i++) {
@@ -204,6 +232,7 @@ public void mouseClicked() {
     if (statut == 0) {
       println("play clicked Menu jeu");
       statut = 1; // On va au jeu
+
     } else if (statut == 2) {
       println("test 1 clicked Menu gameover");
       statut = 0; //retourne au menu principal
@@ -274,12 +303,12 @@ public void afficheMenuGameOver() {
   fill(255, 255, 255);
   textSize(20);
 
-  for (int i=0; i < N_MENUS_GAMEOVER; i++) {
+  for (int i=0; i < 1; i++) {
 
     PImage image_actuel = (position_curseur == i) ? bouton_rouge : bouton_bleu;
-    image(image_actuel, bouton_x1[i], bouton_y1[i]);
-    int x1 = (bouton_largeur - (int)textWidth(menu_gameover[i]) ) /2;
-    text(menu_gameover[i], bouton_x1[i] + x1 + 17, 42 + bouton_y1[i]);
+    image(image_actuel, bouton_x1[1], bouton_y1[1]);
+    int x1 = (bouton_largeur - (int)textWidth(menu_gameover[1]) ) /2;
+    text(menu_gameover[1], bouton_x1[1] + x1 + 17, 42 + bouton_y1[1]);
   }
 }
 
