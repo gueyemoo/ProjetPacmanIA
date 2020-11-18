@@ -129,7 +129,15 @@ class Fantome {
             }
           }
         } else { // en mode fuite
-          noeudFantome.add(new Noeud(1,29));
+          if (nom == "FantomeRouge") {
+              noeudFantome.add(new Noeud(1,1));
+          } else if (nom == "FantomeBleu") {
+              noeudFantome.add(new Noeud(26,29));
+          } else if (nom == "FantomeOrange") {
+              noeudFantome.add(new Noeud(1,29));
+          } else if (nom == "FantomeRose") {
+              noeudFantome.add(new Noeud(26,1));
+          }
         }
       }
       for (int i=0; i<noeudFantome.size(); i++) {
