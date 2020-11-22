@@ -36,9 +36,26 @@ public class Pacman {
 
       PVector positionArray = new PVector((position.x-8)/16, (position.y-8)/16);
 
+      //remet les chemins des fantomes a zero
+      fantomeRouge.definirChemin();
+      fantomeBleu.definirChemin();
+      fantomeRose.definirChemin();
+      fantomeOrange.definirChemin();
+
       if (!carreaux[floor(positionArray.y)][floor(positionArray.x)].estManger) { //Verifie si le point de la position a deja été manger ou non
         carreaux[floor(positionArray.y)][floor(positionArray.x)].estManger=true;
         score = score + 1 ;
+        if (carreaux[floor(positionArray.y)][floor(positionArray.x)].pointBonus) { //Si pacman mange un gros point
+          //met les fantomes en mode fuite
+          fantomeRouge.fuite = true;
+          fantomeRouge.compteurFuite = 0;
+          fantomeBleu.fuite = true;
+          fantomeBleu.compteurFuite = 0;
+          fantomeRose.fuite = true;
+          fantomeRose.compteurFuite = 0;
+          fantomeOrange.fuite = true;
+          fantomeOrange.compteurFuite = 0;
+        }
       }
 
       PVector positionApresChangement = new PVector(positionArray.x + changementDirection.x, positionArray.y + changementDirection.y); // On verfie le carreau ou le joueur compte aller en tournant
@@ -62,6 +79,18 @@ public class Pacman {
           carreaux[floor(positionArray.y)][floor(positionArray.x)].estManger = true; // On lui donne le statut de manger
           score = score + 1;
           println("Score:", score);
+          if (carreaux[floor(positionArray.y)][floor(positionArray.x)].pointBonus) { //Si pacman mange un gros point
+            //met les fantomes en mode fuite
+            fantomeRouge.fuite = true;
+            fantomeRouge.compteurFuite = 0;
+            fantomeBleu.fuite = true;
+            fantomeBleu.compteurFuite = 0;
+            fantomeRose.fuite = true;
+            fantomeRose.compteurFuite = 0;
+            fantomeOrange.fuite = true;
+            fantomeOrange.compteurFuite = 0;
+          }
+          println("compteur Peur: ", fantomeRose.compteurFuite);
         }
       }
 
@@ -72,20 +101,20 @@ public class Pacman {
       return true; // si pas sur une position critique (mur)
     }
   }
-  
+
   public boolean toucher(PVector positionFantome) {
     if (dist(positionFantome.x, positionFantome.y, position.x, position.y) <10) { // si la distance entre le fantome et pacman est très proche
       return true; // on considère qu'ils se touchent
     }
     return false;
   }
-  
+
   public void tuer() {
    vies = vies -1;
    if (vies <0) {
     fin_de_partie = true; // fin de partie quand pacman n'a plus de vies
    } else {
-    position = new PVector(13*16+8,23*16+8); // remet pacman a la position de départ 
+    position = new PVector(13*16+8,23*16+8); // remet pacman a la position de départ
     direction = new PVector(-1,0);
     changementDirection = new PVector(-1,0);
     // On recéer tout les fantomes pour remettre a 0 leurs compteurs et leurs positions

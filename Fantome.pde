@@ -128,7 +128,7 @@ class Fantome {
               noeudFantome.add(new Noeud(matricePositionPacman.x, matricePositionPacman.y));
             }
           }
-        } else { // en mode fuite
+        } else { // en mode dispersion
           if (nom == "FantomeRouge") {
               noeudFantome.add(new Noeud(1,1));
           } else if (nom == "FantomeBleu") {
