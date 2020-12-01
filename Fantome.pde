@@ -31,6 +31,11 @@ class Fantome {
         chasse = false;
         compteurChasse = 0; // remise a 0 du compteur pour prochaine chasse
       }
+    } else {
+      if (compteurChasse > 700) {
+        chasse = true;
+        compteurChasse = 0;
+      }
     }
 
     if (mort) {
@@ -76,7 +81,7 @@ class Fantome {
             if (!carreaux[j-1][i].mur || !carreaux[j+1][i].mur) { // verif si espace haut/bas
               if (!carreaux[j][i-1].mur || !carreaux[j][i+1].mur) { // verif si espace droite/gauche
                 noeudFantome.add(new Noeud(i, j)); // ajout du noeud
-                
+
 
               }
             }
@@ -243,10 +248,10 @@ class Fantome {
       meilleurChemin = temporaire.dupliquer();
     }
   }
-  
+
   public void dessineNoeud(){
-      for (int i=0; i<noeudFantome.size()-1; i++) 
-    { 
+      for (int i=0; i<noeudFantome.size()-1; i++)
+    {
       fill(255, 255, 255);
       ellipse(noeudFantome.get(i).x*16+8, noeudFantome.get(i).y*16+8, 10, 10);
     }
