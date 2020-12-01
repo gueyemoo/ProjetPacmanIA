@@ -159,6 +159,8 @@ public void draw() {
   
   
     afficheCarteJeuDeTest();
+    afficheTest2Info();
+    
 
 
     fantomeTest2Aetoile.apparait();
@@ -200,6 +202,13 @@ public void afficheVies(){
            ellipse(450+x, 200, 15, 15); //Dessine un cercle
  }
 }
+
+  public void afficheTest2Info(){
+   text("Bleu : BFS",460,190);
+   text("Vert : A*",450,130);
+   textSize(10);
+   fill(255,0,0);
+  }
 
 public void mouseMoved() {
   if (statut == 0 ) {
