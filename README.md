@@ -8,7 +8,7 @@ Testing and Implementing different AI Algorithm in the game Pacman
 <br/>
 
 <a href="https://gitpoint.co/">
-  <img alt="PacmanGame" title="Game" src="https://imgur.com/sCmR1Z3.png" width="450">
+  <img alt="PacmanGame" title="Game" src="https://imgur.com/hPFba3m.png" width="450">
 </a>
 
 par Mohamed Gueye & Antoine du Bois
