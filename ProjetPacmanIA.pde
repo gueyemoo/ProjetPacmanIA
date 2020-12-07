@@ -4,6 +4,7 @@ final int JEU = 1;
 final int MENU_GAMEOVER = 2;
 final int MENU_GAMEOVER_APROPOS = 3;
 final int TEST2 = 4;
+final int TEST3 = 5;
 
 PImage bouton_bleu, bouton_rouge, menu_img, menu_titre, menu_gameover_img, carte_img;
 String [] menu_option = {"Play", "Test 2", "Test 3"};
@@ -23,6 +24,7 @@ FantomeRose fantomeRose;
 FantomeOrange fantomeOrange;
 FantomeTest2AEtoile fantomeTest2Aetoile;
 FantomeTest2BFS fantomeTest2Bfs;
+FantomeTestMD fantomeTestMD;
 
 
 Carreau[][] carreaux = new Carreau[31][28]; // on fait correspondre les carreaux à la map du pacman en insérant par [y][x]
@@ -108,7 +110,7 @@ public void setup() {
   fantomeOrange = new FantomeOrange();
   fantomeTest2Aetoile = new FantomeTest2AEtoile();
   fantomeTest2Bfs = new FantomeTest2BFS();
-  
+  fantomeTestMD = new FantomeTestMD();
 }
 
 public void draw() {
@@ -122,63 +124,82 @@ public void draw() {
   case JEU:
     if (!pacman.fin_de_partie) {
 
-    fill(255, 255, 0);
-    background(0);
-    text("Score : ", 450, 110);
-    text(pacman.score, 450,130);
-    textSize(20);
+      fill(255, 255, 0);
+      background(0);
+      text("Score : ", 450, 110);
+      text(pacman.score, 450, 130);
+      textSize(20);
 
-    afficheVies();
-    afficheCarteJeu();
-    pacman.avance();
+      afficheVies();
+      afficheCarteJeu();
+      pacman.avance();
 
-    fantomeRouge.apparait();
-    fantomeRouge.deplacement();
-    
-    fantomeBleu.apparait();
-    fantomeBleu.deplacement();
-    
-    fantomeRose.apparait();
-    fantomeRose.deplacement();
-    
-    fantomeOrange.apparait();
-    fantomeOrange.deplacement();
+      fantomeRouge.apparait();
+      fantomeRouge.deplacement();
 
-    pacman.dessine();
-    if(pacman.score == 246){
-     statut = MENU_GAMEOVER;  
-    }
-    
+      fantomeBleu.apparait();
+      fantomeBleu.deplacement();
+
+      fantomeRose.apparait();
+      fantomeRose.deplacement();
+
+      fantomeOrange.apparait();
+      fantomeOrange.deplacement();
+
+      pacman.dessine();
+      if (pacman.score == 246) {
+        statut = MENU_GAMEOVER;
+      }
     } else {
-     statut = MENU_GAMEOVER;
+      statut = MENU_GAMEOVER;
     }
 
     break;
 
   case TEST2: //traite l'affiche du TEST 2
-  
-  
+
+
     afficheCarteJeuDeTest();
     afficheTest2Info();
-    
 
 
+    fill(255, 0, 0);
     fantomeTest2Aetoile.apparait();
     fantomeTest2Aetoile.deplacement();
-    
+
     fantomeTest2Bfs.dessineNoeud();
-  stroke(0,255,0);
-  fill(0,255,0);
-    
-   fantomeTest2Bfs.apparait();
-   fantomeTest2Bfs.deplacement();
-   
-   
-    
+    stroke(0, 255, 0);
+    fill(0, 255, 0);
+
+    fantomeTest2Bfs.apparait();
+    fantomeTest2Bfs.deplacement();
+
+
+
     pacman.dessine();
     pacman.avance();
-    
+
     break;
+
+  case TEST3: //traite l'affichage du TEST 3
+    afficheCarteJeuDeTest();
+    afficheTest3Info();
+
+    fill(255, 0, 0);
+    fantomeTest2Aetoile.apparait();
+    fantomeTest2Aetoile.deplacement();
+    fantomeTest2Aetoile.dessineNoeud();
+
+    stroke(0, 255, 0);
+    fill(0, 255, 0);
+    fantomeTestMD.apparait();
+    fantomeTestMD.deplacement();
+    fantomeTestMD. dessineNoeud();
+
+    pacman.dessine();
+    pacman.avance();
+    break;
+
 
   case MENU_GAMEOVER:
     background(0, 0, 0);
@@ -192,23 +213,28 @@ public void draw() {
   }
 }
 
-public void afficheVies(){
- int x = 0;
- for (int i=-1; i<pacman.vies; i++){
-   x = x + 20;
-           text("Vies : ",460,190);
-           textSize(20);
-           fill(255, 0, 0); //Colorie en rouge
-           ellipse(450+x, 200, 15, 15); //Dessine un cercle
- }
+public void afficheVies() {
+  int x = 0;
+  for (int i=-1; i<pacman.vies; i++) {
+    x = x + 20;
+    text("Vies : ", 460, 190);
+    textSize(20);
+    fill(255, 0, 0); //Colorie en rouge
+    ellipse(450+x, 200, 15, 15); //Dessine un cercle
+  }
 }
 
-  public void afficheTest2Info(){
-   text("Bleu : BFS",460,190);
-   text("Vert : A*",450,130);
-   textSize(10);
-   fill(255,0,0);
-  }
+public void afficheTest2Info() {
+  text("Rouge:A*", 455, 190);
+  text("Violet:BFS", 455, 130);
+  textSize(20);
+}
+
+public void afficheTest3Info() {
+  text("Rouge:A*", 455, 190);
+  text("Vert:MD", 455, 130);
+  textSize(20);
+}
 
 public void mouseMoved() {
   if (statut == 0 ) {
@@ -241,7 +267,6 @@ public void mouseClicked() {
     if (statut == 0) {
       println("play clicked Menu jeu");
       statut = 1; // On va au jeu
-
     } else if (statut == 2) {
       println("test 1 clicked Menu gameover");
       statut = 0; //retourne au menu principal
@@ -267,7 +292,7 @@ public void mouseClicked() {
   case 2:
     if (statut == 0) {
       println("test 3 clicked Menu jeu");
-      statut = 2;
+      statut = 5;
     } else if (statut == 2) {
       println("test 3 clicked Menu gameover");
       statut = 3;
@@ -363,7 +388,7 @@ public void initCarteJeu() { //Initialise la carte du jeu pacman, afin de faire 
 
 public void afficheCarteJeu() { //Affiche la carte du jeu pacman
   image(carte_img, 0, 0);
-  stroke(255);
+  stroke(255,255,0);
   for (int i = 0; i< 28; i++) {
     for (int j = 0; j< 31; j++) {
       carreaux[j][i].dessine();
@@ -373,8 +398,8 @@ public void afficheCarteJeu() { //Affiche la carte du jeu pacman
 
 public void afficheCarteJeuDeTest() { //Affiche la carte du jeu pacman pour nos tests
   image(carte_img, 0, 0);
-  stroke(128,0,128);
-  fill(128,0,128);
+  stroke(128, 0, 128);
+  fill(128, 0, 128);
 }
 
 
@@ -510,7 +535,7 @@ public Chemin AlgoRechercheAEtoile(Noeud depart, Noeud arrive, PVector deplaceme
     if (listChemin.isEmpty()) {
       if (cheminTrouver ==false) //Il n'y a aucun chemin du debut a la fin
       {
-        print("Houston on a un probleme");//message d'erreur 
+        print("A*: PAS DE CHEMIN ");//message d'erreur 
         return null;
       } else {//Si un chemin a été trouver alors celui si a été stocker dans cheminFinal alors on retourne cheminFinal
         return cheminFinal.dupliquer();
@@ -594,7 +619,7 @@ public Chemin AlgoRechercheMeilleurDab(Noeud depart, Noeud arrive, PVector depla
           int intMax = 0;
           for (int i=0; i < triChemin.size(); i++) {
             if (maximum < triChemin.get(i).distance) { //L'algorithme de meilleur d'abord utilise la distance jusqu'a l'objectif sans le cout du chemin pour déterminer l'ordre de tri
-            //içi le cout c'est la distanceRestante 
+              //içi le cout c'est la distanceRestante 
               intMax = i;
               maximum = triChemin.get(i).distance ;
             }
@@ -610,7 +635,7 @@ public Chemin AlgoRechercheMeilleurDab(Noeud depart, Noeud arrive, PVector depla
     if (listChemin.isEmpty()) {
       if (cheminTrouver ==false) //Il n'y a aucun chemin du debut a la fin
       {
-        print("Houston on a un probleme");//message d'erreur 
+        print("Meilleur Dabord: PAS DE CHEMIN ");//message d'erreur 
         return null;
       } else {//Si un chemin a été trouver alors celui si a été stocker dans cheminFinal alors on retourne cheminFinal
         return cheminFinal.dupliquer();
@@ -649,42 +674,36 @@ public Chemin AlgoRechercheBFS(Noeud depart, Noeud arrive, PVector deplacement) 
       }
     } 
 
-    
-    //enlever le if ci-dessous nous fait passer en BFS, (ça va pas marcher) trop de possibilité de chemin du coup il faut augmenter la mémoire dans les préférences à 512 car ça en demande trop sinon erreur.
-   // if (!etendre.chemin.getLast().verifier || etendre.distance < etendre.chemin.getLast().plusPetiteDistanceAuTarget) {//Si le noeud d'arriver du chemin choisi a deja été verifié et que la distance a l'arriver est plus court que le chemin actuelle choisi alors le chemin choisi n'est pas le bon
-    
 
-      if (!cheminTrouver || etendre.distance + dist(etendre.chemin.getLast().x, etendre.chemin.getLast().y, arrive.x, arrive.y) < cheminFinal.distance) { //On ne regarde pas les chemins qui sont plus long qu'un chemin qui a deja atteint l'arriver
 
-        //Si c'est le premier chemin a atteindre l'arriver ou le plus court chemin a atteindre le noeud alors on défini la distance la plus courte jusqu'a l'arriver par celle de ce chemin 
-        etendre.chemin.getLast().plusPetiteDistanceAuTarget = etendre.distance;
+    if (!cheminTrouver || etendre.distance + dist(etendre.chemin.getLast().x, etendre.chemin.getLast().y, arrive.x, arrive.y) < cheminFinal.distance) { //On ne regarde pas les chemins qui sont plus long qu'un chemin qui a deja atteint l'arriver
 
-        Noeud noeudTemporaire = new Noeud(0, 0); //crée un noeud temporaire ou le réinitialise
+      //Si c'est le premier chemin a atteindre l'arriver ou le plus court chemin a atteindre le noeud alors on défini la distance la plus courte jusqu'a l'arriver par celle de ce chemin 
+      etendre.chemin.getLast().plusPetiteDistanceAuTarget = etendre.distance;
 
-        if (etendre.chemin.size() > 1) { //si le chemin actuelle contient au moins 2 noeud
-          noeudTemporaire = etendre.chemin.get(etendre.chemin.size() -2); //Défini le noeud temporaire comme l'avant dernier noeud du chemin actuelle
-        }
+      Noeud noeudTemporaire = new Noeud(0, 0); //crée un noeud temporaire ou le réinitialise
 
-        for (int i=0; i<etendre.chemin.getLast().listeNoeud.size(); i++) { //Pour chaque noeud connecter au noeud final du chemin à étendre (le chemin actuelle)
-
-          if (noeudTemporaire != etendre.chemin.getLast().listeNoeud.get(i)) { // Si on ne va pas en arriere (verifie que le nouveau noeud n'est pas le noeud qui se trouver derriere) 
-            //Si la direction vers le nouveau noeud est a l'opposer de la direction vers laquel le chemin aller alors on ne compte pas ce chemin
-            PVector directionVersLeNoeud = new PVector(etendre.chemin.getLast().listeNoeud.get(i).x - etendre.chemin.getLast().x, etendre.chemin.getLast().listeNoeud.get(i).y - etendre.chemin.getLast().y);
-            directionVersLeNoeud.limit(deplacement.mag());
-
-            if (directionVersLeNoeud.x == -1* etendre.direction.x && directionVersLeNoeud.y == -1* etendre.direction.y ) {
-              //on ne fait rien car le noeud est a l'opposé
-            } else {// si le noeud n'est pas a l'opposé et donc le fantome ne fait pas demi tour (rappel le fantome peut pas faire demi tour au pacman)
-              etendu = etendre.dupliquer(); // Duplique le chemin actuelle
-              etendu.ajoutNoeudAuChemin(etendre.chemin.getLast().listeNoeud.get(i), arrive); //Ajoute le noeud au chemin actuelle dupliquer
-              etendu.direction = new PVector(directionVersLeNoeud.x, directionVersLeNoeud.y); //Defini la direction vers le noeud
-              listChemin.add(etendu.dupliquer());//ajoute le chemin actuelle dupliquer a la liste des chemins a trié
-            }
-          }
-      //  }
-
+      if (etendre.chemin.size() > 1) { //si le chemin actuelle contient au moins 2 noeud
+        noeudTemporaire = etendre.chemin.get(etendre.chemin.size() -2); //Défini le noeud temporaire comme l'avant dernier noeud du chemin actuelle
       }
-      
+
+      for (int i=0; i<etendre.chemin.getLast().listeNoeud.size(); i++) { //Pour chaque noeud connecter au noeud final du chemin à étendre (le chemin actuelle)
+
+        if (noeudTemporaire != etendre.chemin.getLast().listeNoeud.get(i)) { // Si on ne va pas en arriere (verifie que le nouveau noeud n'est pas le noeud qui se trouver derriere) 
+          //Si la direction vers le nouveau noeud est a l'opposer de la direction vers laquel le chemin aller alors on ne compte pas ce chemin
+          PVector directionVersLeNoeud = new PVector(etendre.chemin.getLast().listeNoeud.get(i).x - etendre.chemin.getLast().x, etendre.chemin.getLast().listeNoeud.get(i).y - etendre.chemin.getLast().y);
+          directionVersLeNoeud.limit(deplacement.mag());
+
+          if (directionVersLeNoeud.x == -1* etendre.direction.x && directionVersLeNoeud.y == -1* etendre.direction.y ) {
+            //on ne fait rien car le noeud est a l'opposé
+          } else {// si le noeud n'est pas a l'opposé et donc le fantome ne fait pas demi tour (rappel le fantome peut pas faire demi tour au pacman)
+            etendu = etendre.dupliquer(); // Duplique le chemin actuelle
+            etendu.ajoutNoeudAuChemin(etendre.chemin.getLast().listeNoeud.get(i), arrive); //Ajoute le noeud au chemin actuelle dupliquer
+            etendu.direction = new PVector(directionVersLeNoeud.x, directionVersLeNoeud.y); //Defini la direction vers le noeud
+            listChemin.add(etendu.dupliquer());//ajoute le chemin actuelle dupliquer a la liste des chemins a trié
+          }
+        }
+      }
     }
 
     etendre.chemin.getLast().verifier = true;
@@ -693,7 +712,7 @@ public Chemin AlgoRechercheBFS(Noeud depart, Noeud arrive, PVector deplacement) 
     if (listChemin.isEmpty()) {
       if (cheminTrouver ==false) //Il n'y a aucun chemin du debut a la fin
       {
-        print("Houston on a un probleme");//message d'erreur 
+        print("BFS: PAS DE CHEMIN ");//message d'erreur 
         return null;
       } else {//Si un chemin a été trouver alors celui si a été stocker dans cheminFinal alors on retourne cheminFinal
         return cheminFinal.dupliquer();

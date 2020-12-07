@@ -1,6 +1,6 @@
-class FantomeTest2AEtoile extends Fantome {
-  FantomeTest2AEtoile() {
-    super(new PVector(1*16 + 8, 1*16+8), color(255, 0, 0), "FantomeTest2AEtoile");
+class FantomeTestMD extends Fantome {
+  FantomeTestMD() {
+    super(new PVector(1*18 + 8, 1*16+8), color(0, 0, 255), "FantomeTestMD");
     definirChemin();
   }
 
@@ -48,25 +48,26 @@ class FantomeTest2AEtoile extends Fantome {
         }
       }
     }
-     //Noeud target = new Noeud(26,29); //objectif a atteindre par le fantome
-     noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16)); // poursuit pacman
-     
+    // Noeud target = new Noeud(26,29); //objectif a atteindre par le fantome
+    noeudFantome.add(new Noeud((pacman.position.x-8)/16, (pacman.position.y-8)/16)); // poursuit pacman
     // noeudFantome.add(target); //target le coin en bas à droite
-    
-    
+
+
     for (int i=0; i<noeudFantome.size(); i++) {
       noeudFantome.get(i).ajoutNoeud(noeudFantome);
     }
+
   }
-  
+
   @Override
     void definirChemin() {
     noeudFantome.clear();
     setNoeud();
+
     depart = noeudFantome.get(0);
     arrivee = noeudFantome.get(noeudFantome.size()-1);
-    Chemin temporaire = AlgoRechercheAEtoile(depart, arrivee, dir);
-    if(temporaire != null) {
+    Chemin temporaire = AlgoRechercheMeilleurDab(depart, arrivee, dir);
+    if (temporaire != null) {
       meilleurChemin = temporaire.dupliquer();
     }
   }
